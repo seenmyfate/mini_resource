@@ -2,7 +2,8 @@ source "http://rubygems.org"
 # Add dependencies required to use your gem here.
 # Example:
 #   gem "activesupport", ">= 2.3.5"
-
+  gem 'addressable'
+  gem 'json'
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
@@ -12,4 +13,5 @@ group :development do
   gem "jeweler", "~> 1.6.4"
   gem "rcov", ">= 0"
   gem "reek", "~> 1.2.8"
+  gem "webmock", "~> 1.7.7"
 end

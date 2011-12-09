@@ -1,20 +1,14 @@
 module MiniResource
-  attr_accessor :uri
-
-  def find(id)
-    Request.new(uri,id).response
-  end
-
   class Request
     require 'net/http'
     require 'uri'
     require 'json'
 
-    attr_accessor :uri, :response
+    attr_accessor :url, :response
 
     def initialize(url,id)
       @uri = URI.parse([url,id].join)
-      @response = JSON.parse(get)
+      @response = Response.new(get)
     end
 
     class ApiError < Exception
@@ -38,13 +32,11 @@ module MiniResource
     end
 
     def http
-      Net::HTTP.new(uri.host, uri.port)
+      Net::HTTP.new(uri.host, port)
     end
 
     def request
-      Net::HTTP::Get.new(uri.to_s)
+      Net::HTTP::Get.new(uri.request_uri)
     end
   end
 end
-
-
