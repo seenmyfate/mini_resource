@@ -1,0 +1,4 @@
+---
+ControlCouple: 
+  exclude:
+  - !ruby/regexp /write/
