@@ -12,7 +12,9 @@ end
 describe MiniResource do
   let(:uri) { 'http://test.com' }
   let(:id)  { 1 }
+  let(:response) { {:id => 1, :name => "test" } }
 
+  
   context "uri" do
     it 'stores the uri' do
       DummyClass.uri = uri
@@ -21,7 +23,6 @@ describe MiniResource do
   end
 
   context "#find" do
-    let(:response) { {:id => 1, :name => "test"} }
     before do
       MiniResource::Request.should_receive(:new).with(uri,id).
         and_return(response)
@@ -35,7 +36,6 @@ describe MiniResource do
   end
 
   context "#new" do
-    let(:response) { {:id => 1, :name => "test"} }
     
     subject { DummyClass.new(response) }
     it "stores the response" do
@@ -43,17 +43,7 @@ describe MiniResource do
     end
   end
   
-  context "#attributes" do
-    let(:response) { {:id => 1, :name => "test"} }
-
-    subject { DummyClass.new(response) }
-    it "makes attributes available" do
-      subject.attributes.should eq [:id, :name]
-    end
-  end
-
   context "#respond_to?" do
-    let(:response) { {:id => 1, :name => "test"} }
     subject { DummyClass.new(response) }
     context "response has key" do
       it "returns true" do
@@ -91,7 +81,7 @@ end
 describe MiniResource::Request do
   let(:url) { 'http://mini.com/resource/' }
   let(:id)  { 1 }
-  let(:uri) { 'http://mini.com/resource/1' }
+  let(:uri) { 'http://mini.com/resource/1.json' }
   let(:parsed_response) { {"resource" => {"id" => "1"} } }
 
   context "#new" do
@@ -133,7 +123,7 @@ describe MiniResource::Request do
 end
 
 describe MiniResource::Response do
-  let(:parsed_response) { {:id => 1, :name => 'test'} }
+  let(:parsed_response) { {:id => 1, :name => 'test', :deep => {:level => true } } }
   let(:response) { parsed_response.to_json }
 
   context "#new" do

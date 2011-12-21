@@ -16,25 +16,15 @@ module MiniResource
   end
  
   def method_missing(method_name, *args, &blk)
-    return response[method_name] if has_key?(method_name)
+    return response[method_name] if response.has_key?(method_name)
     super
-  end
-
-  def attributes
-    response.keys
-  end
- 
-  private
-
-  def has_key?(method_name)
-    response.has_key?(method_name)
   end
 
   module ClassMethods
     attr_accessor :uri
 
     def find(id)
-      new MiniResource::Request.new(uri,id)
+      new MiniResource::Request.new(uri,id).response
     end
   end
 
@@ -47,8 +37,8 @@ module MiniResource
     attr_accessor :uri, :response
 
     def initialize(url,id)
-      @uri = URI.parse([url,id].join)
-      @response = Response.new(get)
+      @uri = URI.parse([url,id, format].join)
+      @response = Response.new(get).parsed_response
     end
 
     #
@@ -62,6 +52,10 @@ module MiniResource
     class ResourceNotFound < Exception;end;
 
     private
+
+    def format
+      '.json'
+    end
 
     def get
       response = http.request(request)
@@ -95,10 +89,15 @@ module MiniResource
   #
   class Response
     require 'active_support/json'
-    require 'active_support/core_ext/hash/indifferent_access'
-     attr_accessor :parsed_response
+     attr_accessor :parsed_response, :response
     def initialize(json)
-      @parsed_response = ActiveSupport::JSON.decode(json).symbolize_keys!
+      @response = json
+      @parsed_response = parse_response 
+    end
+
+    def parse_response
+      hash = ActiveSupport::JSON.decode(response).deep_symbolize_keys
+      hash[:hotel]
     end
   end
 end

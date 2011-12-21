@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "mini_resource"
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["seenmyfate"]
-  s.date = "2011-12-08"
+  s.date = "2011-12-21"
   s.description = "Smaller lighter implementation of the part of Active Resource that I use"
   s.email = "seenmyfate@gmail.com"
   s.extra_rdoc_files = [
@@ -19,14 +19,23 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
     ".rspec",
+    ".rvmrc",
     "Gemfile",
+    "Gemfile.lock",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
     "VERSION",
     "lib/mini_resource.rb",
+    "lib/mini_resource/core_ext/hash.rb",
+    "mini_resource.gemspec",
+    "spec/config.reek",
     "spec/mini_resource_spec.rb",
-    "spec/spec_helper.rb"
+    "spec/reek_spec.rb",
+    "spec/spec_helper.rb",
+    "spec/support/bad.json",
+    "spec/support/good.json",
+    "spec/support/missing.json"
   ]
   s.homepage = "http://github.com/seenmyfate/mini_resource"
   s.licenses = ["MIT"]
@@ -38,8 +47,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<addressable>, [">= 0"])
-      s.add_runtime_dependency(%q<json>, [">= 0"])
+      s.add_runtime_dependency(%q<activesupport>, [">= 3.0.0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.3.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.6.0"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -48,8 +56,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<reek>, ["~> 1.2.8"])
       s.add_development_dependency(%q<webmock>, ["~> 1.7.7"])
     else
-      s.add_dependency(%q<addressable>, [">= 0"])
-      s.add_dependency(%q<json>, [">= 0"])
+      s.add_dependency(%q<activesupport>, [">= 3.0.0"])
       s.add_dependency(%q<rspec>, ["~> 2.3.0"])
       s.add_dependency(%q<yard>, ["~> 0.6.0"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
@@ -59,8 +66,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<webmock>, ["~> 1.7.7"])
     end
   else
-    s.add_dependency(%q<addressable>, [">= 0"])
-    s.add_dependency(%q<json>, [">= 0"])
+    s.add_dependency(%q<activesupport>, [">= 3.0.0"])
     s.add_dependency(%q<rspec>, ["~> 2.3.0"])
     s.add_dependency(%q<yard>, ["~> 0.6.0"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
