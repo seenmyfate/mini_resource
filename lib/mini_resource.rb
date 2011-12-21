@@ -20,6 +20,10 @@ module MiniResource
     super
   end
 
+  def attributes
+    response.keys
+  end
+ 
   private
 
   def has_key?(method_name)

@@ -42,6 +42,15 @@ describe MiniResource do
       subject.response.should eq response
     end
   end
+  
+  context "#attributes" do
+    let(:response) { {:id => 1, :name => "test"} }
+
+    subject { DummyClass.new(response) }
+    it "makes attributes available" do
+      subject.attributes.should eq [:id, :name]
+    end
+  end
 
   context "#respond_to?" do
     let(:response) { {:id => 1, :name => "test"} }
