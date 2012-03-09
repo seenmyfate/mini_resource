@@ -96,8 +96,7 @@ module MiniResource
     end
 
     def parse_response
-      hash = ActiveSupport::JSON.decode(response).deep_symbolize_keys
-      hash[:hotel]
+      ActiveSupport::JSON.decode(response).deep_symbolize_keys
     end
   end
 end

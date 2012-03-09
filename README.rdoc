@@ -1,6 +1,9 @@
 = mini_resource
 
-Description goes here.
+A smaller ActiveResource
+
+I don't actually remmeber writing this, so probably best to not use this in
+production just yet :)
 
 == Contributing to mini_resource
  
